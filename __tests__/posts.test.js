@@ -35,4 +35,19 @@ describe('posts routes', () => {
         expect(res.body).toEqual(posts);
       });
   });
+
+  // TO DO: populate comments and commenter
+  it('gets a post by its id', async() => {
+    const post = await getPost();
+    const user = await getUser({ _id: post.user });
+
+    return request(app)
+      .get(`/api/v1/posts/${post._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          ...post,
+          user
+        });
+      });
+  });
 });
