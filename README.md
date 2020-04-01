@@ -22,13 +22,13 @@ Work in vertical slices with TDD
 ### Posts
 1. Model (references user)
    1. Must have `comments` virtual
-2. Routes: 
+2. Routes
    1. Authentication needed to `create`, `update` and `delete`
    2. Populate user (using reference id) and comments (using virtual) on GET (/posts/:id) route
    3. Aggregation on GET (/posts/popular) route for 10 posts with most comments
 
 ### Comments
-1. Model (references both posts and routes)
+1. Model (references both posts and users)
 2. Routes: only two (`create` and `delete`); authentication needed for both
 
 ### Users (if time)
