@@ -1,9 +1,12 @@
-const { getUser, getAgent } = require('../db/data-helpers');
+const { getUser, getAgent, getPosts } = require('../db/data-helpers');
+
+const request = require('supertest');
+const app = require('../lib/app');
 
 describe('posts routes', () => {
   it('creates a post', async() => {
     const user = await getUser({ username: 'gnome' });
-    
+
     return getAgent()
       .post('/api/v1/posts')
       .send({
@@ -20,6 +23,16 @@ describe('posts routes', () => {
           tags: ['garden', 'inspired'],
           __v: 0
         });
+      });
+  });
+
+  it('gets all posts', async() => {
+    const posts = await getPosts();
+
+    return request(app)
+      .get('/api/v1/posts')
+      .then(res => {
+        expect(res.body).toEqual(posts);
       });
   });
 });
