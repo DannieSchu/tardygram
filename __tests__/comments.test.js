@@ -1,4 +1,4 @@
-const { getUser, getPost, getAgent } = require('../db/data-helpers');
+const { getUser, getPost, getAgent, getComment } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -8,7 +8,6 @@ describe('comment routes', () => {
     const user = await getUser({ username: 'gnome' });
     const post = await getPost();
 
-    // console.log(user)
     return getAgent()
       .post('/api/v1/comments')
       .send({
@@ -23,6 +22,17 @@ describe('comment routes', () => {
           comment: 'Let me join you in the gnome garden!',
           __v: 0
         });
+      });
+  });
+
+  it('deletes a comment', async() => {
+    const user = await getUser({ username: 'gnome' });
+    const comment = await getComment({ commentBy: user._id });
+
+    return getAgent()
+      .delete(`/api/v1/comments/${comment._id}`)
+      .then(res => {
+        expect(res.body).toEqual(comment);
       });
   });
 });
