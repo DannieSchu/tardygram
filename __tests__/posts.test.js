@@ -52,9 +52,8 @@ describe('posts routes', () => {
   });
 
   it('updates a post', async() => {
-    // const user = await getUser({ username: 'gnome' });
-    // const post = await getPost({ user: user._id });
-    const post = await getPost();
+    const user = await getUser({ username: 'gnome' });
+    const post = await getPost({ user: user._id });
 
     return getAgent()
       .patch(`/api/v1/posts/${post._id}`)
