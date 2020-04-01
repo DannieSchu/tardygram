@@ -51,7 +51,7 @@ describe('auth routes', () => {
       .then(res => {
         expect(res.body).toEqual({
           message: 'Invalid username or password',
-          error: 401
+          status: 401
         });
       });
   });
