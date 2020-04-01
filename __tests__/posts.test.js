@@ -50,4 +50,20 @@ describe('posts routes', () => {
         });
       });
   });
+
+  it('updates a post', async() => {
+    // const user = await getUser({ username: 'gnome' });
+    // const post = await getPost({ user: user._id });
+    const post = await getPost();
+
+    return getAgent()
+      .patch(`/api/v1/posts/${post._id}`)
+      .send({ caption: 'Some new caption' })
+      .then(res => {
+        expect(res.body).toEqual({
+          ...post,
+          caption: 'Some new caption'
+        });
+      });
+  });
 });
