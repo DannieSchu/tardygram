@@ -19,16 +19,16 @@ beforeEach(() => {
   return seed();
 });
 
-// const agent = request.agent(app);
-// beforeEach(() => {
-//   return agent
-//     .post('/api/v1/auth/login')
-//     .send({
-//       username: 'gnome',
-//       password: 'feelinggnomey',
-//       profilePhotoURL: 'https://unsplash.com/photos/TZyEMoSB9Tw'       
-//     });
-// });
+const agent = request.agent(app);
+beforeEach(() => {
+  return agent
+    .post('/api/v1/auth/login')
+    .send({
+      username: 'gnome',
+      password: 'feelinggnomey',
+      profilePhotoURL: 'https://unsplash.com/photos/TZyEMoSB9Tw'       
+    });
+});
 
 afterAll(() => {
   return mongoose.connection.close();
@@ -54,7 +54,6 @@ const getters = files
   }, {});
 
 module.exports = {
-  getters
-  // ...getters,
-  // getAgent: () => agent
+  ...getters,
+  getAgent: () => agent
 };
