@@ -1,8 +1,5 @@
 const { getUser, getPost, getAgent, getComment } = require('../db/data-helpers');
 
-const request = require('supertest');
-const app = require('../lib/app');
-
 describe('comment routes', () => {
   it('creates a comment', async() => {
     const user = await getUser({ username: 'gnome' });
