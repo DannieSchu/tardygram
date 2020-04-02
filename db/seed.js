@@ -3,7 +3,7 @@ const User = require('../lib/models/User');
 const Post = require('../lib/models/Post');
 const Comment = require('../lib/models/Comment');
 
-module.exports = async({ usersToCreate = 5, postsToCreate = 20, commentsToCreate = 50 } = {}) => {
+module.exports = async({ usersToCreate = 20, postsToCreate = 40, commentsToCreate = 100 } = {}) => {
   const loggedInUser = await User.create({
     username: 'gnome',
     password: 'feelinggnomey',
@@ -13,7 +13,7 @@ module.exports = async({ usersToCreate = 5, postsToCreate = 20, commentsToCreate
   const tagOptions = ['cheerful', 'inspiring', 'gnomey', 'odd', 'Oregon', 'garden'];
 
   const users = await User.create([...Array(usersToCreate)].slice(1).map(() => ({
-    username: chance.animal(),
+    username: chance.email(),
     password: chance.word(),
     profilePhotoURL: chance.avatar({ fileExtension: 'jpg' })
   })));
