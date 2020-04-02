@@ -1,4 +1,4 @@
-const { getUser, getAgent, getPost, getPosts } = require('../db/data-helpers');
+const { getUser, getAgent, getPost, getPosts, getComments } = require('../db/data-helpers');
 
 const request = require('supertest');
 const app = require('../lib/app');
@@ -40,12 +40,22 @@ describe('posts routes', () => {
   it('gets a post by its id', async() => {
     const post = await getPost();
     const user = await getUser({ _id: post.user });
+    const comments = await getComments({ post: post._id });
 
     return request(app)
       .get(`/api/v1/posts/${post._id}`)
       .then(res => {
         expect(res.body).toEqual({
           ...post,
+          comments: comments.map(comment => ({
+            _id: comment._id,
+            post: comment.post,
+            comment: comment.comment,
+            commentBy: {
+              _id: comment.commentBy,
+              username: expect.any(String)
+            }
+          })),
           user
         });
       });

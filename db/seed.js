@@ -3,7 +3,7 @@ const User = require('../lib/models/User');
 const Post = require('../lib/models/Post');
 const Comment = require('../lib/models/Comment');
 
-module.exports = async({ usersToCreate = 5, postsToCreate = 20, commentsToCreate = 20 } = {}) => {
+module.exports = async({ usersToCreate = 5, postsToCreate = 20, commentsToCreate = 50 } = {}) => {
   const loggedInUser = await User.create({
     username: 'gnome',
     password: 'feelinggnomey',
@@ -26,7 +26,7 @@ module.exports = async({ usersToCreate = 5, postsToCreate = 20, commentsToCreate
   })));
 
   await Comment.create([...Array(commentsToCreate)].map(() => ({
-    commentBy: chance.weighted([loggedInUser, ...users], [2, ...users.map(() => 1)])._id,
+    commentBy: chance.pickone(users)._id,
     post: chance.pickone(posts)._id,
     comment: chance.sentence()
   })));
