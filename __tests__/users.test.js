@@ -18,7 +18,7 @@ describe('users routes', () => {
 
   it('gets 10 users with the most comments', () => {
     return request(app)
-      .get('/api/v1/users/leaders')
+      .get('/api/v1/users/leader')
       .then(res => {
         expect(res.body.length).toEqual(10);
         expect(res.body).toContainEqual({
