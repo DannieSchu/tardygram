@@ -23,8 +23,9 @@ describe('comment routes', () => {
   });
 
   it('deletes a comment', async() => {
-    const user = await getUser({ username: 'gnome' });
-    const comment = await getComment({ commentBy: user._id });
+    // const user = await getUser({ username: 'gnome' });
+    // const comment = await getComment({ commentBy: user._id });
+    const comment = await getComment();
 
     return getAgent()
       .delete(`/api/v1/comments/${comment._id}`)

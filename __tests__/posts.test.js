@@ -36,7 +36,6 @@ describe('posts routes', () => {
       });
   });
 
-  // TO DO: populate comments and commenter
   it('gets a post by its id', async() => {
     const post = await getPost();
     const user = await getUser({ _id: post.user });
