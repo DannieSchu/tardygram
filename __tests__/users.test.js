@@ -28,4 +28,17 @@ describe('users routes', () => {
         });  
       });   
   });
+
+  it('gets 10 users whose posts received the most comments', () => {
+    return request(app)
+      .get('/api/v1/users/popular')
+      .then(res => {
+        expect(res.body.length).toEqual(10);
+        expect(res.body).toContainEqual({
+          _id: expect.any(String),
+          username: expect.any(String),
+          postComments: expect.any(Number)
+        });  
+      });     
+  });
 });
